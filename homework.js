@@ -7,6 +7,7 @@
 require('dotenv').config({ path: '.env' });
 const dayjs = require('dayjs');
 const axios = require('axios');
+const crypto = require('crypto'); // node內建的加密模組，用於生成更安全的 ID
 
 // API 設定（從 .env 讀取）
 const API_PATH = process.env.API_PATH;
@@ -152,7 +153,8 @@ function validateCartQuantity(quantity) {
  * @returns {string} - 格式 'ORD-xxxxxxxx'
  */
 function generateOrderId() {
-  return 'ORD-' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  //return 'ORD-' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  return `ORD-${crypto.randomUUID()}`; //使用node內建套件確保產生的ID長度固定且不重複
 }
 
 /**
@@ -160,7 +162,8 @@ function generateOrderId() {
  * @returns {string} - 格式 'CART-xxxxxxxx'
  */
 function generateCartItemId() {
-  return 'CART-' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  //return 'CART-' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  return `CART-${crypto.randomUUID()}`; 
 }
 
 // ========================================
